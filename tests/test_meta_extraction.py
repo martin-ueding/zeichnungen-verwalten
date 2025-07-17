@@ -1,4 +1,6 @@
-from zeichnungsverwaltung.meta_extraction import get_filesize_bytes, get_rating, get_tags
+from zeichnungsverwaltung.meta_extraction import get_filesize_bytes
+from zeichnungsverwaltung.meta_extraction import get_rating
+from zeichnungsverwaltung.meta_extraction import get_tags
 
 
 def test_get_rating_1() -> None:

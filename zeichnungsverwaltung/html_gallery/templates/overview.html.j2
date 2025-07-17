@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html data-bs-theme="dark">
+
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
+        crossorigin="anonymous"></script>
+
+    <style>
+        .img-hover-zoom {
+            overflow: hidden;
+        }
+
+        .img-hover-zoom img {
+            transition: transform .7s ease;
+        }
+
+        .img-hover-zoom:hover img {
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <nav class="mb-3" aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="../">Martin Ueding</a></li>
+                <li class="breadcrumb-item active" aria-current="page">{{ title }}</li>
+            </ol>
+        </nav>
+
+        <h1 class="mb-3">{{ title }}</h1>
+
+        {{ description | safe }}
+
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 g-4">
+            {% for gallery in galleries %}
+            <div class="col">
+                <div class="card">
+                    <a href="{{ gallery.directory }}/">
+                        <div class="img-hover-zoom">
+                            <img src="{{ gallery.directory }}/small/{{ gallery.preview }}" class="card-img-top" />
+                        </div>
+                    </a>
+                    <div class="card-body">
+                        <a href="{{ gallery.directory }}/">
+                            <h5 class="card-title" style="text-align: center;">{{ gallery.title }}</h5>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+
+</html>

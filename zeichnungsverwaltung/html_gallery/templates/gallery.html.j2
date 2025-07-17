@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html data-bs-theme="dark">
+
+<head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css" />
+    <script src="https://cdn.jsdelivr.net/gh/mcstudios/glightbox/dist/js/glightbox.js"></script>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
+        crossorigin="anonymous"></script>
+
+    <style>
+        .gdesc-inner,
+        .gslide-description {
+            background-color: hsl(0 0% 15%) !important;
+            color: white;
+        }
+
+        .gslide-title {
+            color: white !important;
+
+        }
+
+        .img-hover-zoom {
+            overflow: hidden;
+        }
+
+        .img-hover-zoom img {
+            transition: transform .7s ease;
+        }
+
+        .img-hover-zoom:hover img {
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <nav class="mb-3" aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="../../">Martin Ueding</a></li>
+                <li class="breadcrumb-item"><a href="../">{{ gallery_title }}</a></li>
+                <li class="breadcrumb-item active" aria-current="page">{{ title }}</li>
+            </ol>
+        </nav>
+
+        <h1 class="mb-3">{{ title }}</h1>
+
+        {{ description | safe }}
+
+        {% macro image_grid(these_images, rating, columns) %}
+        <div class="row {{ columns }} g-4 mb-3">
+            {% for image in these_images %}
+            <div class="col">
+                <a href="large/{{ image.filename }}" class="glightbox"
+                    data-glightbox="title: {{ image.title|e }}; description: .custom-desc-{{ rating }}-{{ loop.index }}; descPosition: right;">
+                    <div class="img-hover-zoom">
+                        <img src="small/{{ image.filename }}" class="card-img-top" />
+                    </div>
+                </a>
+
+                <div class="glightbox-desc custom-desc-{{ rating }}-{{ loop.index }}">
+                    {{ image.description | safe }}
+
+                    <dl>
+                        {% for key in ["Datum", "Zeichenpapier", "Stifte", "Kamera"] %}
+                        {% if image.tags[key] %}
+                        <dt>{{ key }}</dt>
+                        {% for element in image.tags[key] %}
+                        <dd>{{ element }}</dd>
+                        {% endfor %}
+                        {% endif %}
+                        {% endfor %}
+                    </dl>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% endmacro %}
+
+        {{ image_grid(images, 5, 'row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4') }}
+
+        {% if other_images %}
+        {{ image_grid(other_images, 3, 'row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-6') }}
+        {% endif %}
+    </div>
+
+
+    <script type="text/javascript">
+        const lightbox = GLightbox();
+    </script>
+</body>
+
+</html>

@@ -1,9 +1,10 @@
-import collections
-import re
-import pathlib
 import argparse
+import collections
+import pathlib
+import re
 
-from zeichnungsverwaltung.meta_extraction import get_filesize_bytes, get_rating
+from zeichnungsverwaltung.meta_extraction import get_filesize_bytes
+from zeichnungsverwaltung.meta_extraction import get_rating
 
 
 def main() -> None:

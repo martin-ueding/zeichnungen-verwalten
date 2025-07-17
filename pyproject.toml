@@ -6,14 +6,24 @@ authors = ["Martin Ueding <mu@martin-ueding.de>"]
 license = "MIT"
 
 [tool.poetry.scripts]
-zv = "zeichnungsverwaltung.__main__:main"
+zv-publish = "zeichnungsverwaltung.__main__:main"
+zv-dump = "zeichnungsverwaltung.__main__:dump"
+zv-gallery = "zeichnungsverwaltung.html_gallery.html_gallery:main"
+
+zv-metadata-into-filename = "zeichnungsverwaltung.tools.metadata_into_filename:main"
+zv-publish-to-nikola = "zeichnungsverwaltung.tools.publish_to_nikola:main"
+zv-align-originals = "zeichnungsverwaltung.tools.align_originals:main"
 
 [tool.poetry.dependencies]
 python = "^3.13"
 pillow = "^11.1.0"
 python-xmp-toolkit = "^2.0.2"
 setuptools = "^75.8.0"
-
+pyyaml = "^6.0.2"
+tqdm = "^4.67.1"
+jinja2 = "^3.1.6"
+markdown = "^3.8.2"
+pymdown-extensions = "^10.16.1"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.3.4"
