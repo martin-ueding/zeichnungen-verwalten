@@ -12,21 +12,42 @@ class Product:
     def __hash__(self) -> int:
         return hash(self.slug)
 
+    def to_markdown(self) -> str:
+        return f"{self.manufacturer} _{self.product}_"
+
+    @staticmethod
+    def product_type() -> str:
+        return "Produkt"
+
 
 @dataclasses.dataclass
 class Paper(Product):
     weight: int
 
+    @staticmethod
+    def product_type() -> str:
+        return "Zeichenpapier"
+
     def __hash__(self) -> int:
         return hash(self.slug)
+
+    def to_markdown(self) -> str:
+        return f"{super().to_markdown()} ({self.weight} g/m²)"
 
 
 @dataclasses.dataclass
 class Pen(Product):
     kind: str
 
+    @staticmethod
+    def product_type() -> str:
+        return "Stifte"
+
     def __hash__(self) -> int:
         return hash(self.slug)
+
+    def to_markdown(self) -> str:
+        return f"{super().to_markdown()} ({self.kind})"
 
 
 PAPERS = [

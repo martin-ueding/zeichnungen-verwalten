@@ -1,9 +1,12 @@
 import argparse
+import collections
 import pathlib
 import tomllib
 
 import jinja2
 import markdown
+
+from ..drawings_products import products_from_filename
 
 from ..image_processing import create_square_thumbnail
 from ..image_processing import downsize_image
@@ -22,7 +25,7 @@ def main() -> None:
     locale: str = config["locale"]
 
     jinja_env = jinja2.Environment(
-        loader=jinja2.PackageLoader("zeichnungsverwaltung"),
+        loader=jinja2.PackageLoader("zeichnungsverwaltung.html_gallery"),
         autoescape=jinja2.select_autoescape(),
     )
 
@@ -48,7 +51,6 @@ def main() -> None:
                 ):
                     images.append(image)
         images.sort(key=lambda image: image.date, reverse=True)
-        print(images)
 
         template_context = {
             "gallery_title": config["title"],
@@ -108,7 +110,6 @@ def process_images(
                     downsize_image(image.path, target, size)
     context = []
     for image in images:
-        print(image)
         context.append(
             {
                 "filename": image.path.with_suffix(".webp").name,
@@ -116,7 +117,18 @@ def process_images(
                 "description": markdown.markdown(
                     image.description.get(locale, ""), extensions=["pymdownx.magiclink"]
                 ),
-                "tags": image.tag_dict(),
+                "tags": make_tag_dict(image),
             }
         )
     return context
+
+
+def make_tag_dict(image: Image) -> dict[str, list[str]]:
+    result: dict[str, list[str]] = collections.defaultdict(list)
+    assert image.date is not None
+    result["Datum"].append(image.date.isoformat())
+    products = products_from_filename(image.path)
+    for product in products:
+        result[product.product_type()].append(markdown.markdown(product.to_markdown()))
+    print(image.path, products, result)
+    return result

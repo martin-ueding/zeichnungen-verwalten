@@ -70,7 +70,7 @@
                         {% if image.tags[key] %}
                         <dt>{{ key }}</dt>
                         {% for element in image.tags[key] %}
-                        <dd>{{ element }}</dd>
+                        <dd>{{ element|safe }}</dd>
                         {% endfor %}
                         {% endif %}
                         {% endfor %}
