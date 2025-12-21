@@ -2,7 +2,6 @@ import pathlib
 import subprocess
 
 
-
 def downsize_image(
     source: pathlib.Path, target: pathlib.Path, size: int = 2000
 ) -> None:
