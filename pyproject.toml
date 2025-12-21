@@ -13,6 +13,7 @@ zv-gallery = "zeichnungsverwaltung.html_gallery.html_gallery:main"
 zv-metadata-into-filename = "zeichnungsverwaltung.tools.metadata_into_filename:main"
 zv-publish-to-nikola = "zeichnungsverwaltung.tools.publish_to_nikola:main"
 zv-align-originals = "zeichnungsverwaltung.tools.align_originals:main"
+zv-raw-image-size = "zeichnungsverwaltung.tools.raw_image_size:main"
 
 [tool.poetry.dependencies]
 python = "^3.13"

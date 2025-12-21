@@ -133,3 +133,18 @@ def get_title(xmp_dict: dict, base: str) -> dict[str, str]:
         else:
             result[""] = ns_dict[f"dc:{base}[{i}]"][0]
     return result
+
+
+def find_original(path: pathlib.Path) -> pathlib.Path | None:
+    if m := re.search(r"^(\d{4}-\d{2}-\d{2}_\d{2,})", path.stem):
+        date_id = m.group(1)
+        year = date_id[:4]
+        pngs = list(
+            (pathlib.Path("/home/mu/Bilder/Zeichnungen/Scan-Rohbilder") / year).glob(
+                f"{date_id} *.png"
+            )
+        )
+        if not pngs:
+            return None
+        assert len(pngs) <= 1, pngs
+        return pngs[0]
