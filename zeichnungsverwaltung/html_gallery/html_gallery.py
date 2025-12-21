@@ -56,13 +56,11 @@ def main() -> None:
             "description": markdown.markdown(gallery_config["description"]),
             "images": process_images(
                 [image for image in images if image.rating == 5],
-                base,
                 locale,
                 output_path / gallery_name,
             ),
             "other_images": process_images(
                 [image for image in images if image.rating == 3],
-                base,
                 locale,
                 output_path / gallery_name,
             ),
@@ -94,7 +92,7 @@ def main() -> None:
 
 
 def process_images(
-    images: list[Image], base: pathlib.Path, locale: str, output_path: pathlib.Path
+    images: list[Image], locale: str, output_path: pathlib.Path
 ) -> list[dict]:
     for image in images:
         for size, directory in [(2000, "large"), (500, "small")]:
