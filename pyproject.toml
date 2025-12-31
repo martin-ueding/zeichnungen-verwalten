@@ -15,6 +15,8 @@ zv-publish-to-nikola = "zeichnungsverwaltung.tools.publish_to_nikola:main"
 zv-align-originals = "zeichnungsverwaltung.tools.align_originals:main"
 zv-raw-image-size = "zeichnungsverwaltung.tools.raw_image_size:main"
 zv-scan = "zeichnungsverwaltung.tools.scan:main"
+zv-process = "zeichnungsverwaltung.tools.process:main"
+zv-apply-watermark = "zeichnungsverwaltung.tools.apply_watermark:main"
 
 [tool.poetry.dependencies]
 python = "^3.13"
