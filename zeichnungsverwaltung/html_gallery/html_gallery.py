@@ -32,6 +32,8 @@ def main() -> None:
     gallery_template = jinja_env.get_template("gallery.html.j2")
     overview_template = jinja_env.get_template("overview.html.j2")
 
+    preview_images = {}
+
     for gallery_name, gallery_config in config["featured"].items():
         gallery_name: str
         print(gallery_name)
@@ -52,20 +54,27 @@ def main() -> None:
                     images.append(image)
         images.sort(key=lambda image: image.date, reverse=True)
 
+        five_star_images = process_images(
+            [image for image in images if image.rating == 5],
+            locale,
+            output_path / gallery_name,
+        )
+        three_star_images = process_images(
+            [image for image in images if image.rating == 3],
+            locale,
+            output_path / gallery_name,
+        )
+
+        preview_images[gallery_name] = (five_star_images + three_star_images)[0][
+            "filename"
+        ]
+
         template_context = {
             "gallery_title": config["title"],
             "title": gallery_config["title"],
             "description": markdown.markdown(gallery_config["description"]),
-            "images": process_images(
-                [image for image in images if image.rating == 5],
-                locale,
-                output_path / gallery_name,
-            ),
-            "other_images": process_images(
-                [image for image in images if image.rating == 3],
-                locale,
-                output_path / gallery_name,
-            ),
+            "images": five_star_images,
+            "other_images": three_star_images,
         }
 
         rendered = gallery_template.render(template_context)
@@ -80,9 +89,7 @@ def main() -> None:
             {
                 "title": gallery_config["title"],
                 "directory": gallery_name,
-                "preview": pathlib.Path(gallery_config["preview"])
-                .with_suffix(".webp")
-                .name,
+                "preview": preview_images[gallery_name],
             }
             for gallery_name, gallery_config in config["featured"].items()
         ],
