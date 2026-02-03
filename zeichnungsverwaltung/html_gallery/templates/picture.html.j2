@@ -1,0 +1,32 @@
+{% extends "base.html.j2" %}
+
+{% block container %}
+<nav class="mb-3" aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="../">Martin Ueding</a></li>
+        <li class="breadcrumb-item"><a href="../">{{ gallery_title }}</a></li>
+        <li class="breadcrumb-item active" aria-current="page">{{ title }}</li>
+    </ol>
+</nav>
+
+<h1 class="mb-3">{{ image.title|e }}</h1>
+
+<div class="mb-3">
+    <img src="large/{{ image.filename }}" />
+</div>
+
+<div class="mb-3">
+    {{ image.description | safe }}
+
+    <dl>
+        {% for key in ["Datum", "Zeichenpapier", "Stifte", "Kamera"] %}
+        {% if image.tags[key] %}
+        <dt>{{ key }}</dt>
+        {% for element in image.tags[key] %}
+        <dd>{{ element|safe }}</dd>
+        {% endfor %}
+        {% endif %}
+        {% endfor %}
+    </dl>
+</div>
+{% endblock %}

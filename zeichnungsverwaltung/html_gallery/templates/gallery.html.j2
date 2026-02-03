@@ -17,27 +17,11 @@
 <div class="row {{ columns }} g-4 mb-3">
     {% for image in these_images %}
     <div class="col">
-        <a href="large/{{ image.filename }}" class="glightbox"
-            data-glightbox="title: {{ image.title|e }}; description: .custom-desc-{{ rating }}-{{ loop.index }}; descPosition: right;">
+        <a href="{{ image.link_target }}">
             <div class="img-hover-zoom">
                 <img src="small/{{ image.filename }}" class="card-img-top" />
             </div>
         </a>
-
-        <div class="glightbox-desc custom-desc-{{ rating }}-{{ loop.index }}">
-            {{ image.description | safe }}
-
-            <dl>
-                {% for key in ["Datum", "Zeichenpapier", "Stifte", "Kamera"] %}
-                {% if image.tags[key] %}
-                <dt>{{ key }}</dt>
-                {% for element in image.tags[key] %}
-                <dd>{{ element|safe }}</dd>
-                {% endfor %}
-                {% endif %}
-                {% endfor %}
-            </dl>
-        </div>
     </div>
     {% endfor %}
 </div>
@@ -48,8 +32,4 @@
 {% if other_images %}
 {{ image_grid(other_images, 3, 'row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-6') }}
 {% endif %}
-
-<script type="text/javascript">
-    const lightbox = GLightbox();
-</script>
 {% endblock %}

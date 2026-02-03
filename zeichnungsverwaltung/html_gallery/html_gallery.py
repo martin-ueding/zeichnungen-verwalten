@@ -31,6 +31,7 @@ def main() -> None:
 
     gallery_template = jinja_env.get_template("gallery.html.j2")
     overview_template = jinja_env.get_template("overview.html.j2")
+    picture_template = jinja_env.get_template("picture.html.j2")
 
     preview_images = {}
 
@@ -82,6 +83,14 @@ def main() -> None:
         with open(output_path / gallery_name / "index.html", "w") as f:
             f.write(rendered)
 
+        for image in five_star_images + three_star_images:
+            rendered = picture_template.render(image=image)
+            picture_html_path = (
+                output_path / gallery_name / image["filename"].replace(".webp", ".html")
+            )
+            with open(picture_html_path, "w") as f:
+                f.write(rendered)
+
     gallery_template_context = {
         "title": config["title"],
         "description": markdown.markdown(config["description"]),
@@ -120,6 +129,7 @@ def process_images(
         context.append(
             {
                 "filename": image.path.with_suffix(".webp").name,
+                "link_target": image.path.with_suffix(".html").name,
                 "title": image.title[locale],
                 "description": markdown.markdown(
                     image.description.get(locale, ""), extensions=["pymdownx.magiclink"]
