@@ -16,18 +16,22 @@
 
 <h1 class="mb-3">{{ image.title|e }}</h1>
 
-<div class="mb-3">
-    {{ image.description | safe }}
+<div class="row mb-3">
+    <div class="col-md-8">
+        {{ image.description | safe }}
+    </div>
 
-    <dl>
-        {% for key in ["Datum", "Zeichenpapier", "Stifte", "Kamera"] %}
-        {% if image.tags[key] %}
-        <dt>{{ key }}</dt>
-        {% for element in image.tags[key] %}
-        <dd>{{ element|safe }}</dd>
-        {% endfor %}
-        {% endif %}
-        {% endfor %}
-    </dl>
+    <div class="col-md-4">
+        <dl>
+            {% for key in ["Datum", "Zeichenpapier", "Stifte", "Kamera"] %}
+            {% if image.tags[key] %}
+            <dt>{{ key }}</dt>
+            {% for element in image.tags[key] %}
+            <dd>{{ element|safe }}</dd>
+            {% endfor %}
+            {% endif %}
+            {% endfor %}
+        </dl>
+    </div>
 </div>
 {% endblock %}
