@@ -13,7 +13,12 @@ class Product:
         return hash(self.slug)
 
     def to_markdown(self) -> str:
-        return f"{self.manufacturer} _{self.product}_"
+        words = []
+        if self.manufacturer:
+            words.append(f"{self.manufacturer}")
+        if self.product:
+            words.append(f"_{self.product}_")
+        return " ".join(words)
 
     @staticmethod
     def product_type() -> str:
@@ -51,6 +56,7 @@ class Pen(Product):
 
 
 PAPERS = [
+    Paper("ClAl12", "Clairefontaine", "Clairalfa/1952C", 120),
     Paper("Cn1512", "Canson", "1557", 120),
     Paper("CnCA13", "Canson", '"C" à grain', 125),
     Paper("CnGS10", "Canson", "Graduate Sketching", 96),
@@ -63,24 +69,28 @@ PAPERS = [
     Paper("SaSB14", "Sakura", "Sketch Note Book", 140),
     Paper("SfMF12", "Staufen", "Multifunktionspapier", 120),
     Paper("SIJo12", "Stationary Island", "Plain Journal", 120),
-    Paper("XXRe08", "Unbekannt", "Recycling-Kopierpaier", 80),
-    Paper("XXKo08", "Unbekannt", "Kopierpaier", 80),
-    Paper("XXPS17", "Unbekannt", "Pinkes Skizzenbuch", 170),
+    Paper("XXKo08", "", "Kopierpaier", 80),
+    Paper("XXPS17", "", "Pinkes Skizzenbuch", 170),
+    Paper("XXRe08", "", "Recycling-Kopierpaier", 80),
 ]
 
 PENS = [
     Pen("FC900", "Faber-Castell", "Castell 9000", "Holzbleistift"),
+    Pen("FCPEP", "Faber-Castell", "Precision Eraser Pen", "Radierstift"),
+    Pen("FCPer", "Faber-Castell", "Perfection 7056", "Radierstift"),
+    Pen("FCPGM", "Faber-Castell", "Pitt Graphite Matt", "Holzbleistift"),
     Pen("FCTK9", "Faber-Castell", "TK-9400", "Fallminenstift"),
     Pen("FCTKF", "Faber-Castell", "TK-Fine", "Drückbleistift"),
-    Pen("FCPGM", "Faber-Castell", "Pitt Graphite Matt", "Holzbleistift"),
     Pen("LaLog", "Lamy", "Logo", "Drückbleistift"),
     Pen("LyRCa", "Lyra", "Rembrandt Carbon", "Karbonstift"),
     Pen("LyRCh", "Lyra", "Rembrandt Charcoal", "Kohlestift"),
     Pen("LyRSa", "Lyra", "Rembrandt Sanguine", "Sanguine-Stift"),
     Pen("LyRSe", "Lyra", "Rembrandt Sepia", "Sepia-Stift"),
+    Pen("LyRWP", "Lyra", "Rembrandt White Pastel", "Pastel-Stift"),
     Pen("MaRaC", "Marco", "Raffiné Charcoal", "Kohlestift"),
     Pen("MaRaG", "Marco", "Raffiné 7001", "Holzbleistift"),
-    Pen("StGra", "Staedler", "Unbekannt", "Holzbleistift"),
+    Pen("PsPrä", "Pssopp", "Prägestift", "Prägestift"),
+    Pen("StGra", "Staedler", "", "Holzbleistift"),
 ]
 
 PRODUCTS = PAPERS + PENS
