@@ -84,7 +84,7 @@ def main() -> None:
             f.write(rendered)
 
         for image in five_star_images + three_star_images:
-            rendered = picture_template.render(image=image)
+            rendered = picture_template.render(image=image, **template_context)
             picture_html_path = (
                 output_path / gallery_name / image["filename"].replace(".webp", ".html")
             )

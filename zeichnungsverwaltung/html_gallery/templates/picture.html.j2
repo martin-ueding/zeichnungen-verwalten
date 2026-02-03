@@ -3,9 +3,10 @@
 {% block container %}
 <nav class="mb-3" aria-label="breadcrumb">
     <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="../">Martin Ueding</a></li>
+        <li class="breadcrumb-item"><a href="../../">Martin Ueding</a></li>
         <li class="breadcrumb-item"><a href="../">{{ gallery_title }}</a></li>
-        <li class="breadcrumb-item active" aria-current="page">{{ title }}</li>
+        <li class="breadcrumb-item"><a href="./">{{ title }}</a></li>
+        <li class="breadcrumb-item active" aria-current="page">{{ image.title|e }}</li>
     </ol>
 </nav>
 
