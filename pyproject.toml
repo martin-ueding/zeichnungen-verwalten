@@ -1,15 +1,30 @@
-[tool.poetry]
+[project]
 name = "zeichnungsverwaltung"
 version = "0.2.0"
 description = ""
-authors = ["Martin Ueding <mu@martin-ueding.de>"]
+authors = [{ name = "Martin Ueding", email = "mu@martin-ueding.de" }]
+requires-python = ">=3.13,<4"
 license = "MIT"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+]
+dependencies = [
+    "pillow>=11.1.0,<12",
+    "python-xmp-toolkit>=2.0.2,<3",
+    "setuptools>=75.8.0,<76",
+    "pyyaml>=6.0.2,<7",
+    "tqdm>=4.67.1,<5",
+    "jinja2>=3.1.6,<4",
+    "markdown>=3.8.2,<4",
+    "pymdown-extensions>=10.16.1,<11",
+]
 
-[tool.poetry.scripts]
+[project.scripts]
 zv-publish = "zeichnungsverwaltung.__main__:main"
 zv-dump = "zeichnungsverwaltung.__main__:dump"
 zv-gallery = "zeichnungsverwaltung.html_gallery.html_gallery:main"
-
 zv-metadata-into-filename = "zeichnungsverwaltung.tools.metadata_into_filename:main"
 zv-publish-to-nikola = "zeichnungsverwaltung.tools.publish_to_nikola:main"
 zv-align-originals = "zeichnungsverwaltung.tools.align_originals:main"
@@ -18,20 +33,14 @@ zv-scan = "zeichnungsverwaltung.tools.scan:main"
 zv-process = "zeichnungsverwaltung.tools.process:main"
 zv-apply-watermark = "zeichnungsverwaltung.tools.apply_watermark:main"
 
-[tool.poetry.dependencies]
-python = "^3.13"
-pillow = "^11.1.0"
-python-xmp-toolkit = "^2.0.2"
-setuptools = "^75.8.0"
-pyyaml = "^6.0.2"
-tqdm = "^4.67.1"
-jinja2 = "^3.1.6"
-markdown = "^3.8.2"
-pymdown-extensions = "^10.16.1"
+[dependency-groups]
+dev = ["pytest>=8.3.4,<9"]
 
-[tool.poetry.group.dev.dependencies]
-pytest = "^8.3.4"
+[tool.uv]
+
+[tool.uv.build-backend]
+module-root = ""
 
 [build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+requires = ["uv_build>=0.9.30,<0.10.0"]
+build-backend = "uv_build"
