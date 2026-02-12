@@ -93,7 +93,14 @@ PENS = [
     Pen("StGra", "Staedler", "", "Holzbleistift"),
 ]
 
-PRODUCTS = PAPERS + PENS
+OTHERS = [
+    Product("BrADS", "Brother", "ADS-1800W"),
+    Product("CaE3D", "Canon", "EOS 350D"),
+    Product("CaPG5", "Canon", "PowerShot G5 X Mark II"),
+    Product("CaPMX", "Canon", "Pixma MX340"),
+]
+
+PRODUCTS = PAPERS + PENS + OTHERS
 
 
 PRODUCT_DICT = {product.slug: product for product in PRODUCTS}
