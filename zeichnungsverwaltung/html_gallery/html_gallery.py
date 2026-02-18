@@ -114,9 +114,7 @@ def process_images(
 ) -> list[dict]:
     for image in images:
         for size, directory in [(2000, "large"), (500, "small")]:
-            target: pathlib.Path = (
-                output_path / directory / image.path.name
-            ).with_suffix(".webp")
+            target: pathlib.Path = output_path / directory / f"{image.slug}.webp"
             target.parent.mkdir(exist_ok=True, parents=True)
             if not target.exists():
                 print(f"Downsampling {image.path.name} …")
@@ -128,8 +126,8 @@ def process_images(
     for image in images:
         context.append(
             {
-                "filename": image.path.with_suffix(".webp").name,
-                "link_target": image.path.with_suffix(".html").name,
+                "filename": f"{image.slug}.webp",
+                "link_target": f"{image.slug}.html",
                 "title": image.title[locale],
                 "description": markdown.markdown(
                     image.description.get(locale, ""), extensions=["pymdownx.magiclink"]
@@ -147,5 +145,4 @@ def make_tag_dict(image: Image) -> dict[str, list[str]]:
     products = products_from_filename(image.path)
     for product in products:
         result[product.product_type()].append(markdown.markdown(product.to_markdown()))
-    print(image.path, products, result)
     return result

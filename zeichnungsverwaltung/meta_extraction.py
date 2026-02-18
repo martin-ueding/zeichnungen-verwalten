@@ -56,6 +56,10 @@ class Image:
         result["Datum"].append(self.date.isoformat())
         return result
 
+    @property
+    def slug(self) -> str:
+        return self.path.stem.split()[0]
+
 
 def get_hashtags(image: Image, locale: str) -> list[str]:
     return [s[1:] for s in re.findall(r"#\w+", image.description.get(locale, ""))]
