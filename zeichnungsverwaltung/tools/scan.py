@@ -9,16 +9,13 @@ def main() -> None:
     parser.add_argument(
         "type", choices=["drawing", "sketch"], help="Type of scan to perform."
     )
+    parser.add_argument("--color", action="store_true")
     options = parser.parse_args()
 
     timestamp = int(time.time())
 
-    if options.type == "drawing":
-        resolution = "600"
-        mode = "Color"
-    else:  # sketch
-        resolution = "300"
-        mode = "Gray"
+    resolution = 600 if options.type == "drawing" else 300
+    mode = "Color" if options.color else "Gray"
 
     output_dir = pathlib.Path.home() / "Bilder" / "Zeichnungen"
     output_dir.mkdir(parents=True, exist_ok=True)
