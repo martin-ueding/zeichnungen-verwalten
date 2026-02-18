@@ -55,6 +55,13 @@ class Pen(Product):
         return f"{super().to_markdown()} ({self.kind})"
 
 
+@dataclasses.dataclass
+class Digitizer(Pen):
+    @staticmethod
+    def product_type() -> str:
+        return "Digitalisierung"
+
+
 PAPERS = [
     Paper("ClAl12", "Clairefontaine", "Clairalfa/1952C", 120),
     Paper("Cn1512", "Canson", "1557", 120),
@@ -94,10 +101,10 @@ PENS = [
 ]
 
 OTHERS = [
-    Product("BrADS", "Brother", "ADS-1800W"),
-    Product("CaE3D", "Canon", "EOS 350D"),
-    Product("CaPG5", "Canon", "PowerShot G5 X Mark II"),
-    Product("CaPMX", "Canon", "Pixma MX340"),
+    Digitizer("BrADS", "Brother", "ADS-1800W", "Einzugsscanner"),
+    Digitizer("CaE3D", "Canon", "EOS 350D", "Spiegelreflexkamera"),
+    Digitizer("CaPG5", "Canon", "PowerShot G5 X Mark II", "Kompaktkamera"),
+    Digitizer("CaPMX", "Canon", "Pixma MX340", "Flachbettscanner"),
 ]
 
 PRODUCTS = PAPERS + PENS + OTHERS

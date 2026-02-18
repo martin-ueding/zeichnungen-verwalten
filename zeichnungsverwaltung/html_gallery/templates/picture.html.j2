@@ -23,7 +23,7 @@
 
     <div class="col-md-4">
         <dl>
-            {% for key in ["Datum", "Zeichenpapier", "Stifte", "Kamera"] %}
+            {% for key in ["Datum", "Zeichenpapier", "Stifte", "Kamera", "Digitalisierung"] %}
             {% if image.tags[key] %}
             <dt>{{ key }}</dt>
             {% for element in image.tags[key] %}
