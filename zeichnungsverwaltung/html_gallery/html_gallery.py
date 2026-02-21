@@ -43,7 +43,7 @@ def main() -> None:
         for base in gallery_config["base"]:
             path_generator = (
                 pathlib.Path(base).rglob("*.jpg")
-                if gallery_config.get("recursive", False)
+                if gallery_config.get("recursive", True)
                 else pathlib.Path(base).glob("*.jpg")
             )
             for image_path in path_generator:
