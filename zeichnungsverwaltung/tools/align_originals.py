@@ -16,9 +16,10 @@ def main() -> None:
     for path in options.path:
         png = find_original(path)
         if png:
-            new_path = png.with_stem(path.stem)
+            new_path = path.parent / "_Scans" / (path.stem + ".png")
             if new_path != png:
-                print(f"{new_path.parent}/ {png.name} → {new_path.name}")
+                print(f"{png} → {new_path}")
                 if options.force:
                     assert not new_path.exists()
+                    new_path.parent.mkdir(exist_ok=True, parents=True)
                     png.rename(new_path)
