@@ -92,7 +92,7 @@ PENS = [
     Pen("LyRCa", "Lyra", "Rembrandt Carbon", "Karbonstift"),
     Pen("LyRCh", "Lyra", "Rembrandt Charcoal", "Kohlestift"),
     Pen("LyRSa", "Lyra", "Rembrandt Sanguine", "Sanguine-Stift"),
-    Pen("LyRSe", "Lyra", "Rembrandt Sepia", "Sepia-Stift"),
+    Pen("LyRSL", "Lyra", "Rembrandt Sepia Light", "Sepia-Stift"),
     Pen("LyRWP", "Lyra", "Rembrandt White Pastel", "Pastel-Stift"),
     Pen("MaRaC", "Marco", "Raffiné Charcoal", "Kohlestift"),
     Pen("MaRaG", "Marco", "Raffiné 7001", "Holzbleistift"),
