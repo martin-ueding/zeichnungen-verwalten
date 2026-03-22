@@ -8,6 +8,7 @@ class Product:
     slug: str
     manufacturer: str
     product: str
+    kind: str | None = None
 
     def __hash__(self) -> int:
         return hash(self.slug)
@@ -18,6 +19,8 @@ class Product:
             words.append(f"{self.manufacturer}")
         if self.product:
             words.append(f"_{self.product}_")
+        if self.kind:
+            words.append(f"({self.kind})")
         return " ".join(words)
 
     @staticmethod
@@ -39,21 +42,13 @@ class Paper(Product):
 
 @dataclasses.dataclass
 class Pen(Product):
-    kind: str
-
     @staticmethod
     def product_type() -> str:
         return "Stifte"
 
-    def to_markdown(self) -> str:
-        return f"{super().to_markdown()} ({self.kind})"
-
 
 @dataclasses.dataclass
-class Digitizer(Pen):
-    def __hash__(self) -> int:
-        return hash(self.slug)
-
+class Digitizer(Product):
     @staticmethod
     def product_type() -> str:
         return "Digitalisierung"
