@@ -33,8 +33,11 @@ def parse_date_id(stem: str) -> str | None:
 
 
 def gather_paths(root: pathlib.Path) -> tuple[list[pathlib.Path], list[pathlib.Path]]:
-    jpg_paths = sorted(path for path in root.rglob("*.jpg") if path.is_file())
-    png_paths = sorted(path for path in root.rglob("*.png") if path.is_file())
+    def include(path: pathlib.Path) -> bool:
+        return path.is_file() and ".dtrash" not in path.parts
+
+    jpg_paths = sorted(path for path in root.rglob("*.jpg") if include(path))
+    png_paths = sorted(path for path in root.rglob("*.png") if include(path))
     return jpg_paths, png_paths
 
 
