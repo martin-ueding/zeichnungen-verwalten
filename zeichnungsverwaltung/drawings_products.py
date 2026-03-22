@@ -43,6 +43,7 @@ class Product:
             words.append(f"({self.kind})")
         return " ".join(words)
 
+
 class Paper(Product):
     product_type: ClassVar[str] = "Zeichenpapier"
     sort_key: ClassVar[int] = 10
@@ -67,9 +68,14 @@ class Pen(Product):
     sort_key: ClassVar[int] = 20
 
 
+class Eraser(Product):
+    product_type: ClassVar[str] = "Radierer"
+    sort_key: ClassVar[int] = 30
+
+
 class Digitizer(Product):
     product_type: ClassVar[str] = "Digitalisierung"
-    sort_key: ClassVar[int] = 30
+    sort_key: ClassVar[int] = 40
 
 
 PAPERS = [
@@ -93,8 +99,6 @@ PAPERS = [
 
 PENS = [
     Pen("FC900", "Faber-Castell", "Castell 9000", "Holzbleistift"),
-    Pen("FCPEP", "Faber-Castell", "Precision Eraser Pen", "Radierstift"),
-    Pen("FCPer", "Faber-Castell", "Perfection 7056", "Radierstift"),
     Pen("FCPGM", "Faber-Castell", "Pitt Graphite Matt", "Holzbleistift"),
     Pen("FCTK9", "Faber-Castell", "TK-9400", "Fallminenstift"),
     Pen("FCTKF", "Faber-Castell", "TK-Fine", "Drückbleistift"),
@@ -110,6 +114,12 @@ PENS = [
     Pen("StGra", "Staedler", "", "Holzbleistift"),
 ]
 
+ERASERS = [
+    Pen("FCPEP", "Faber-Castell", "Precision Eraser Pen", "Radierstift"),
+    Pen("FCPer", "Faber-Castell", "Perfection 7056", "Radierstift"),
+    Pen("FCKne", "Faber-Castell", "Knetradiergummi", "Radiergummi"),
+]
+
 OTHERS = [
     Digitizer("BrADS", "Brother", "ADS-1800W", "Einzugsscanner"),
     Digitizer("CaE3D", "Canon", "EOS 350D", "Spiegelreflexkamera"),
@@ -117,7 +127,7 @@ OTHERS = [
     Digitizer("CaPMX", "Canon", "Pixma MX340", "Flachbettscanner"),
 ]
 
-PRODUCTS = PAPERS + PENS + OTHERS
+PRODUCTS = PAPERS + PENS + ERASERS + OTHERS
 
 
 PRODUCT_DICT = {product.slug: product for product in PRODUCTS}
