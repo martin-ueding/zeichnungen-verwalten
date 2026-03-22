@@ -22,11 +22,3 @@ def main() -> None:
             str(output_path),
         ]
         subprocess.run(command, check=True)
-
-        year_str = path.name[:4]
-        archive_dir = pathlib.Path("Scan-Rohbilder") / year_str
-        archive_dir.mkdir(parents=True, exist_ok=True)
-        archive_path = archive_dir / path.name
-
-        print(f"Archiving {path} -> {archive_path}")
-        path.rename(archive_path)

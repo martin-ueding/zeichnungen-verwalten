@@ -113,58 +113,12 @@ PRODUCTS = PAPERS + PENS + OTHERS
 PRODUCT_DICT = {product.slug: product for product in PRODUCTS}
 
 
-DIGIKAM_TAGS = {
-    "Stifte/Faber-Castell 9000 Bleistift": "FC900",
-    "Stifte/Faber-Castell Pitt Graphite Matt": "FCPGM",
-    "Stifte/Faber-Castell TK 9400": "FCTK9",
-    "Stifte/Faber-Castell TK-Fine 9710": "FCTKF",
-    "Stifte/Lamy Drückbleistift 0.5 mm": "LaLog",
-    "Stifte/Lyra Rembrandt Carbon": "LyRCa",
-    "Stifte/Lyra Rembrandt Kohle": "LyRCh",
-    "Stifte/Lyra Rembrandt Sanguine": "LyRSa",
-    "Stifte/Lyra Rembrandt Sepia": "LyRSe",
-    "Stifte/Marco Raffiné Graphit": "MaRaG",
-    "Stifte/Marco Raffiné Kohle": "MaRaC",
-    "Stifte/Staedtler Bleistift": "StGra",
-    "Zeichenpapier/Canson 1557 (120 g)": "Cn1512",
-    "Zeichenpapier/Canson C à grain (125 g)": "CnCA13",
-    "Zeichenpapier/Canson Graduate Sketching (96 g)": "CnGS10",
-    "Zeichenpapier/Canson One (100 g)": "CnOA10",
-    "Zeichenpapier/Canson XL Skizze (90 g)": "CnXS09",
-    "Zeichenpapier/Hahnemühle Nostalgie (190 g)": "HaNo19",
-    "Zeichenpapier/Kopierpapier (80 g)": "XXKo08",
-    "Zeichenpapier/Kopierpapier Recycling (80 g)": "XXRe08",
-    "Zeichenpapier/Multifunktionspapier (120 g)": "SfMF12",
-    "Zeichenpapier/Parchment Rose (100 g)": "RöPR10",
-    "Zeichenpapier/Pinkes Skizzenbuch (170 g)": "XXPS17",
-    "Zeichenpapier/Rhodia Touch Bristol (205 g)": "RhTB21",
-    "Zeichenpapier/Sakura Sketchbook (140 g)": "SaSB14",
-    "Zeichenpapier/Stationary Island Journal (120 g)": "SIJo12",
-    "Zeichenpapier/Staufen Multifunktionspapier (120 g)": "SfMF12",
-}
-
-
 def products_from_filename(path: pathlib.Path) -> list[Product]:
     words = path.stem.split()
     result = []
     for word in words:
         if word in PRODUCT_DICT:
             result.append(PRODUCT_DICT[word])
-    return result
-
-
-def products_from_metadata(tags: list[str]) -> list[Product]:
-    result = []
-    for tag in tags:
-        if (
-            tag.startswith("Kamera/")
-            or tag.startswith("Personen/")
-            or tag in ["Stifte"]
-        ):
-            continue
-        slug = DIGIKAM_TAGS[tag]
-        product = PRODUCT_DICT[slug]
-        result.append(product)
     return result
 
 

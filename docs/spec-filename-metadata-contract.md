@@ -16,8 +16,6 @@ Each image stem encodes:
 - human-readable title,
 - normalized product/tag slugs (paper, pens, scanner/digitizer, other material).
 
-Related image metadata tags are also kept in canonical order for consistency, but the filename remains the primary durable contract.
-
 ## Functional Requirements
 
 ### FR-1 Canonical Ordering
@@ -36,6 +34,7 @@ Related image metadata tags are also kept in canonical order for consistency, bu
 
 - Running normalization repeatedly yields identical filename output after first fix.
 - Unknown tags do not silently corrupt filename output.
+- `zv-fsck` performs filename canonicalization during its full check/fix run.
 
 ### FR-4 Safety
 
@@ -45,12 +44,6 @@ Related image metadata tags are also kept in canonical order for consistency, bu
 ### FR-5 Interop with PNG Originals
 
 - When JPG stem changes, corresponding PNG original must be alignable through `zv-fsck align-originals`.
-
-### FR-6 Canonical Image Tag Ordering
-
-- Relevant image metadata tags must be sortable by a deterministic canonical order.
-- `zv-fsck canonical-tags` checks and optionally fixes ordering.
-- Tag ordering fixes do not add or remove tag values.
 
 ## Scope
 
@@ -68,7 +61,6 @@ Related image metadata tags are also kept in canonical order for consistency, bu
 - Canonicalization produces stable stems on repeated runs.
 - Product slugs are fully represented from filename tokens alone.
 - Existing filename slugs are preserved unless normalized ordering changes.
-- Canonical metadata tag ordering is stable on repeated checks/fixes.
 - Collisions are reported and require manual resolution.
 
 ## Open Questions

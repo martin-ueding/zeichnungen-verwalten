@@ -24,13 +24,12 @@ dependencies = [
 zv-publish = "zeichnungsverwaltung.__main__:main"
 zv-dump = "zeichnungsverwaltung.__main__:dump"
 zv-gallery = "zeichnungsverwaltung.html_gallery.html_gallery:main"
-zv-metadata-into-filename = "zeichnungsverwaltung.tools.metadata_into_filename:main"
-zv-align-originals = "zeichnungsverwaltung.tools.align_originals:main"
 zv-raw-image-size = "zeichnungsverwaltung.tools.raw_image_size:main"
 zv-scan = "zeichnungsverwaltung.tools.scan:main"
 zv-process = "zeichnungsverwaltung.tools.process:main"
 zv-apply-watermark = "zeichnungsverwaltung.tools.apply_watermark:main"
 zv-grid = "zeichnungsverwaltung.tools.grid:main"
+zv-fsck = "zeichnungsverwaltung.tools.fsck:main"
 
 [dependency-groups]
 dev = ["pytest>=8.3.4,<9"]

@@ -25,7 +25,7 @@ Rule for this check: if a JPG exists, the matching PNG should live in `_Scans` a
 - Match only `.png` and `.jpg` files (no `.jpeg` support).
 - Include relocation checks and repairs for scan originals.
 - Include alignment checks so renamed JPG files propagate to their PNG originals.
-- Include canonical tag ordering checks for image metadata tags.
+- Include canonical filename slug ordering checks.
 - Include storage summary reporting for JPG/PNG usage and JPG rating buckets.
 - Leave all unmatched PNGs untouched (references, assets, other inputs).
 
@@ -58,16 +58,17 @@ Rule for this check: if a JPG exists, the matching PNG should live in `_Scans` a
 - Report JPG byte totals grouped by rating (including unrated bucket).
 - Reporting mode must not mutate files.
 
-### FR-6 Canonical Tag Ordering
+### FR-6 Canonical Filename Slug Ordering
 
-- Define canonical ordering for relevant image metadata tags.
-- `check` mode reports files whose stored tags violate canonical order.
-- `fix` mode rewrites tag order to canonical order without altering tag values.
+- Define canonical ordering for filename slug tokens.
+- `check` mode reports files whose stems violate canonical slug ordering.
+- `fix` mode renames files to canonical stems without changing slug values.
 
 ### FR-7 Check and Fix Modes
 
 - `check` mode reports proposed changes and errors without mutating files.
 - `fix` mode executes safe file operations, then reports final summary.
+- Both modes always run the full check suite.
 
 ## CLI Proposal
 - Candidate command: `zv-fsck`.
@@ -75,10 +76,6 @@ Rule for this check: if a JPG exists, the matching PNG should live in `_Scans` a
   - `--root <path>` (default `~/Bilder/Zeichnungen`)
   - `check` (default command)
   - `fix` (apply safe fixes)
-  - optional `--only relocate-scans`
-  - optional `--only align-originals`
-  - optional `--only canonical-tags`
-  - optional `--only storage-summary`
 
 ## Acceptance Criteria
 - Every PNG with matching JPG ends up in adjacent `_Scans`.
@@ -86,7 +83,7 @@ Rule for this check: if a JPG exists, the matching PNG should live in `_Scans` a
 - Renamed JPG files can be reconciled so matching PNG originals get aligned names.
 - Script reports counts: scanned PNGs, matched pairs, moved files, conflicts, skipped.
 - Script reports size totals for JPG/PNG and JPG rating groups.
-- Script reports canonical-tag violations and can fix them deterministically.
+- Script reports canonical-filename-slug violations and can fix them deterministically.
 - Running twice in a row in apply mode yields zero additional moves on second run.
 - Any existing target PNG is reported as a manual-resolution error and left unchanged.
 
