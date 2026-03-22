@@ -1,17 +1,37 @@
-import dataclasses
 import pathlib
 from collections.abc import Iterable
+from typing import ClassVar
 
 
-@dataclasses.dataclass
 class Product:
-    slug: str
-    manufacturer: str
-    product: str
-    kind: str | None = None
+    product_type: ClassVar[str] = "Produkt"
+    sort_key: ClassVar[int] = 0
+
+    def __init__(
+        self, slug: str, manufacturer: str, product: str, kind: str | None = None
+    ) -> None:
+        self.slug = slug
+        self.manufacturer = manufacturer
+        self.product = product
+        self.kind = kind
 
     def __hash__(self) -> int:
         return hash(self.slug)
+
+    def __eq__(self, other: object) -> bool:
+        if not isinstance(other, Product):
+            return NotImplemented
+        return self.slug == other.slug
+
+    def __le__(self, other: object) -> bool:
+        if not isinstance(other, Product):
+            return NotImplemented
+        return (self.sort_key, self.slug) <= (other.sort_key, other.slug)
+
+    def __lt__(self, other: object) -> bool:
+        if not isinstance(other, Product):
+            return NotImplemented
+        return self <= other and self != other
 
     def to_markdown(self) -> str:
         words = []
@@ -23,35 +43,33 @@ class Product:
             words.append(f"({self.kind})")
         return " ".join(words)
 
-    @staticmethod
-    def product_type() -> str:
-        return "Produkt"
-
-
-@dataclasses.dataclass
 class Paper(Product):
-    weight: int
+    product_type: ClassVar[str] = "Zeichenpapier"
+    sort_key: ClassVar[int] = 10
 
-    @staticmethod
-    def product_type() -> str:
-        return "Zeichenpapier"
+    def __init__(
+        self,
+        slug: str,
+        manufacturer: str,
+        product: str,
+        weight: int,
+        kind: str | None = None,
+    ) -> None:
+        super().__init__(slug, manufacturer, product, kind)
+        self.weight = weight
 
     def to_markdown(self) -> str:
         return f"{super().to_markdown()} ({self.weight} g/m²)"
 
 
-@dataclasses.dataclass
 class Pen(Product):
-    @staticmethod
-    def product_type() -> str:
-        return "Stifte"
+    product_type: ClassVar[str] = "Stifte"
+    sort_key: ClassVar[int] = 20
 
 
-@dataclasses.dataclass
 class Digitizer(Product):
-    @staticmethod
-    def product_type() -> str:
-        return "Digitalisierung"
+    product_type: ClassVar[str] = "Digitalisierung"
+    sort_key: ClassVar[int] = 30
 
 
 PAPERS = [
@@ -119,10 +137,5 @@ def filename_from_products(
 ) -> pathlib.Path:
     words = path.stem.split()
     words = [word for word in words if word not in PRODUCT_DICT]
-    words += [
-        product.slug
-        for product in sorted(
-            products, key=lambda product: (str(type(product)), product.slug)
-        )
-    ]
+    words += [product.slug for product in sorted(products)]
     return path.with_stem(" ".join(words))

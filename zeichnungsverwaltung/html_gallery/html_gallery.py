@@ -144,5 +144,5 @@ def make_tag_dict(image: Image) -> dict[str, list[str]]:
     result["Datum"].append(image.date.isoformat())
     products = products_from_filename(image.path)
     for product in products:
-        result[product.product_type()].append(markdown.markdown(product.to_markdown()))
+        result[product.product_type].append(markdown.markdown(product.to_markdown()))
     return result
