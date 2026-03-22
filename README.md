@@ -1,19 +1,12 @@
 # Zeichnungsverwaltung
 
-Jobs to be done:
+Specifications live in `docs/`.
 
-- Erstellen einer HTML-Galerie aus meinen Zeichnungen für meine Webseite:
-    - Dabei will ich selbst die Album-Vorschau festlegen.
-    - Der Bildtitel und Beschreibung werden angezeigt.
-    - Papier und Stifte werden angezeigt.
-- Metadaten in Dateinamen übertragen:
-    - IPTC Tags werden ausgelesen und in meine Abkürzungen übersetzt.
-    - Im Dateinamen stehen alle Abkürzungen alphabetisch sortiert am Ende.
-- Fotos in verschiedenen Formaten als Export bereitstellen:
-    - Einfacher Ordner.
-    - Nikola Galerie.
-- Fotos mit Wasserzeichen versehen:
-    - Je nach Galerie ein anderes Wasserzeichen.
-    - Dunkle und helle Fotos unterschiedlich behandeln.
-- Fotos mit Farbmarkierung aus DigiKam extrahieren.
-- Dateinamen zwischen Scan PNG und JPEG synchronisieren basierend auf Datum und ID.
+Core scope:
+
+- Scan and process drawings (`zv-scan`, `zv-process`).
+- Keep filename metadata as canonical contract.
+- Run `zv-fsck` consistency checks and safe repairs.
+- Build static HTML gallery output.
+- Export social upload bundles with optional watermark and plain-text sidecars.
+- Prepare reference images with grid overlays.

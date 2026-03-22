@@ -211,7 +211,6 @@ dependencies = [
     { name = "pillow" },
     { name = "pymdown-extensions" },
     { name = "python-xmp-toolkit" },
-    { name = "pyyaml" },
     { name = "setuptools" },
     { name = "tqdm" },
 ]
@@ -228,7 +227,6 @@ requires-dist = [
     { name = "pillow", specifier = ">=11.1.0,<12" },
     { name = "pymdown-extensions", specifier = ">=10.16.1,<11" },
     { name = "python-xmp-toolkit", specifier = ">=2.0.2,<3" },
-    { name = "pyyaml", specifier = ">=6.0.2,<7" },
     { name = "setuptools", specifier = ">=75.8.0,<76" },
     { name = "tqdm", specifier = ">=4.67.1,<5" },
 ]
