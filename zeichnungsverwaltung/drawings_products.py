@@ -57,6 +57,9 @@ class Pen(Product):
 
 @dataclasses.dataclass
 class Digitizer(Pen):
+    def __hash__(self) -> int:
+        return hash(self.slug)
+
     @staticmethod
     def product_type() -> str:
         return "Digitalisierung"
