@@ -115,9 +115,9 @@ PENS = [
 ]
 
 ERASERS = [
-    Pen("FCPEP", "Faber-Castell", "Precision Eraser Pen", "Radierstift"),
-    Pen("FCPer", "Faber-Castell", "Perfection 7056", "Radierstift"),
-    Pen("FCKne", "Faber-Castell", "Knetradiergummi", "Radiergummi"),
+    Eraser("FCPEP", "Faber-Castell", "Precision Eraser Pen", "Radierstift"),
+    Eraser("FCPer", "Faber-Castell", "Perfection 7056", "Radierstift"),
+    Eraser("FCKne", "Faber-Castell", "Knetradiergummi", "Radiergummi"),
 ]
 
 OTHERS = [
