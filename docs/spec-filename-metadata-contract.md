@@ -22,7 +22,7 @@ Each image stem encodes:
 
 - Date and day-sequence appear first.
 - Title words remain human-readable in the middle.
-- Product/tag slugs are appended in canonical sorted order.
+- Product/tag slugs are appended by group order `Paper -> Pen -> Digitizer`, then slug order inside each group.
 
 ### FR-2 Product Slug Sources
 
