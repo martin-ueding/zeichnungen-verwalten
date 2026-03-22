@@ -33,9 +33,6 @@ class Paper(Product):
     def product_type() -> str:
         return "Zeichenpapier"
 
-    def __hash__(self) -> int:
-        return hash(self.slug)
-
     def to_markdown(self) -> str:
         return f"{super().to_markdown()} ({self.weight} g/m²)"
 
@@ -47,9 +44,6 @@ class Pen(Product):
     @staticmethod
     def product_type() -> str:
         return "Stifte"
-
-    def __hash__(self) -> int:
-        return hash(self.slug)
 
     def to_markdown(self) -> str:
         return f"{super().to_markdown()} ({self.kind})"
