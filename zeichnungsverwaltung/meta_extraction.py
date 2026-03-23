@@ -1,4 +1,3 @@
-import collections
 import dataclasses
 import datetime
 import itertools
@@ -11,6 +10,8 @@ from typing import Optional
 
 from libxmp.utils import file_to_dict  # type: ignore
 
+from .drawings_products import products_from_filename
+
 
 @dataclasses.dataclass
 class Image:
@@ -19,7 +20,6 @@ class Image:
     filesize_bytes: Optional[int] = None
     title: dict[str, str] = dataclasses.field(default_factory=dict)
     description: dict[str, str] = dataclasses.field(default_factory=dict)
-    tags: list[str] = dataclasses.field(default_factory=list)
     rating: Optional[int] = None
     color_label: Optional[str] = None
 
@@ -31,30 +31,11 @@ class Image:
         return "\n\n".join(filter(None, [description, tags]))
 
     def emoji_tags(self) -> list[str]:
-        tags = [
-            tag.replace("Stifte/", "✏️ ")
-            .replace("Zeichenpapier/", "📔 ")
-            .replace("Kamera/", "📷 ")
-            .replace(" g)", " g/m²)")
-            for tag in self.tags
-        ]
+        products = products_from_filename(self.path)
+        tags = [product.to_markdown() for product in products]
         if self.date:
             tags.append(f"🗓️ {self.date.isoformat()}")
         return tags
-
-    def tag_dict(self) -> dict[str, list[str]]:
-        result: dict[str, list[str]] = collections.defaultdict(list)
-        for tag in self.tags:
-            if tag.startswith("Kamera/"):
-                result["Kamera"].append(tag.replace("Kamera/", ""))
-            if tag.startswith("Stifte/"):
-                result["Stifte"].append(tag.replace("Stifte/", ""))
-            if tag.startswith("Zeichenpapier/"):
-                result["Zeichenpapier"].append(
-                    tag.replace("Zeichenpapier/", "").replace(" g)", " g/m²)")
-                )
-        result["Datum"].append(self.date.isoformat())
-        return result
 
     @property
     def slug(self) -> str:
@@ -81,7 +62,6 @@ def parse_drawing(path: pathlib.Path) -> Image:
     )
     result.title = get_title(xmp_dict, "title")
     result.description = get_title(xmp_dict, "description")
-    result.tags = get_tags(xmp_dict)
     return result
 
 
@@ -99,19 +79,8 @@ def get_scalar(ns_list: list, target: str):
         for key, value, extra in ns_list:
             if key == target:
                 return value
-    except KeyError as e:
+    except KeyError:
         pass
-
-
-def get_tags(xmp_dict: dict) -> list[str]:
-    result = []
-    for key, value, extra in xmp_dict.get("http://www.digikam.org/ns/1.0/", []):
-        if key.startswith("digiKam:TagsList["):
-            result.append(value)
-    for key, value, extra in xmp_dict.get("http://ns.adobe.com/tiff/1.0/", []):
-        if key == "tiff:Model":
-            result.append(f"Kamera/{value}")
-    return result
 
 
 def get_filesize_bytes(path) -> int:
