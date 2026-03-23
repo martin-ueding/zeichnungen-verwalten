@@ -21,8 +21,8 @@ dependencies = [
 ]
 
 [project.scripts]
-zv-publish = "zeichnungsverwaltung.__main__:main"
-zv-dump = "zeichnungsverwaltung.__main__:dump"
+zv-publish = "zeichnungsverwaltung.export.cli:main"
+zv-inspect = "zeichnungsverwaltung.tools.inspect:main"
 zv-gallery = "zeichnungsverwaltung.html_gallery.html_gallery:main"
 zv-scan = "zeichnungsverwaltung.tools.scan:main"
 zv-process = "zeichnungsverwaltung.tools.process:main"
