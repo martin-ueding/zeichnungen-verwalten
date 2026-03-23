@@ -103,7 +103,3 @@ def main() -> None:
     args = parser.parse_args()
 
     overlay_grid(args.image_path)
-
-
-if __name__ == "__main__":
-    main()
