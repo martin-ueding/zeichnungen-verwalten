@@ -1,16 +1,16 @@
 import abc
 import pathlib
 import shutil
-from typing import Optional
 
 
-def combine_bits(bits: list[Optional[str]]) -> str:
+def combine_bits(bits: list[str | None]) -> str:
     return "\n\n".join(bit for bit in bits if bit)
 
 
-def hashtags_to_string(hashtags: Optional[list[str]]) -> Optional[str]:
+def hashtags_to_string(hashtags: list[str] | None) -> str | None:
     if hashtags:
         return " ".join(f"#{tag}" for tag in hashtags)
+    return None
 
 
 class Publisher(abc.ABC):
@@ -18,9 +18,9 @@ class Publisher(abc.ABC):
     def publish(
         self,
         path: pathlib.Path,
-        title: Optional[str] = None,
-        description: Optional[str] = None,
-        hashtags: Optional[list[str]] = None,
+        title: str | None = None,
+        description: str | None = None,
+        hashtags: list[str] | None = None,
     ) -> None:
         pass
 

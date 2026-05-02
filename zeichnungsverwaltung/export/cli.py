@@ -2,21 +2,17 @@ import argparse
 import pathlib
 import tomllib
 import uuid
-from typing import Optional
 
 import PIL.Image
 import PIL.ImageOps
 from tqdm import tqdm
 
-from .meta_extraction import get_hashtags
-from .meta_extraction import Image
-from .meta_extraction import parse_drawing
+from ..meta_extraction import get_hashtags
+from ..meta_extraction import Image
+from ..meta_extraction import parse_drawing
 from .publishers import DirectoryPublisher
 from .publishers import PrintPublisher
 from .publishers import Publisher
-
-
-BASE = pathlib.Path("/home/mu/Bilder/Zeichnungen")
 
 
 class Formatter:
@@ -26,7 +22,7 @@ class Formatter:
 
     def format(
         self, image: Image
-    ) -> tuple[Optional[str], Optional[str], Optional[list[str]]]:
+    ) -> tuple[str | None, str | None, list[str] | None]:
         title = image.title.get(self.locale, None)
         description = image.description.get(self.locale, None)
         if description:
@@ -42,7 +38,7 @@ class Formatter:
 
 
 class Selector:
-    def __init__(self, glob: str, color_label: Optional[str] = None) -> None:
+    def __init__(self, glob: str, color_label: str | None = None) -> None:
         self.glob = glob
         self.color_label = color_label
 
@@ -61,7 +57,7 @@ class Selector:
 
 
 class WatermarkApplier:
-    def __init__(self, watermark_path: Optional[str] = None) -> None:
+    def __init__(self, watermark_path: str | None = None) -> None:
         self.watermark_path = watermark_path
 
     def apply(self, image: Image) -> pathlib.Path:
@@ -118,7 +114,7 @@ class Orchestrator:
 
 def main() -> None:
     parser = argparse.ArgumentParser()
-    options = parser.parse_args()
+    parser.parse_args()
 
     with open("/home/mu/.config/zeichnungsverwaltung.toml", "rb") as f:
         config = tomllib.load(f)
@@ -135,9 +131,7 @@ def main() -> None:
             case "PrintPublisher":
                 publisher = PrintPublisher()
             case "DirectoryPublisher":
-                publisher = DirectoryPublisher(
-                    pathlib.Path(data["publisher"]["target"])
-                )
+                publisher = DirectoryPublisher(pathlib.Path(data["publisher"]["target"]))
             case _:
                 raise NotImplementedError(data["publisher"]["type"])
 
@@ -152,13 +146,3 @@ def main() -> None:
 
     for orchestrator in orchestrators:
         orchestrator.publish_some()
-
-
-def dump() -> None:
-    parser = argparse.ArgumentParser()
-    parser.add_argument("path", type=pathlib.Path)
-    parser.add_argument("--locale", default="de-DE")
-    options = parser.parse_args()
-
-    drawing = parse_drawing(options.path)
-    print(drawing.get_description(options.locale))

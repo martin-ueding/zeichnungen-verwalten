@@ -41,7 +41,9 @@ def gather_paths(root: pathlib.Path) -> tuple[list[pathlib.Path], list[pathlib.P
     return jpg_paths, png_paths
 
 
-def move_file(ctx: RunContext, source: pathlib.Path, target: pathlib.Path, reason: str) -> bool:
+def move_file(
+    ctx: RunContext, source: pathlib.Path, target: pathlib.Path, reason: str
+) -> bool:
     if source == target:
         return False
     if target.exists():
@@ -161,7 +163,9 @@ def check_storage_summary(ctx: RunContext) -> None:
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Check and repair drawing archive consistency.")
+    parser = argparse.ArgumentParser(
+        description="Check and repair drawing archive consistency."
+    )
     parser.add_argument("mode", nargs="?", choices=["check", "fix"], default="check")
     parser.add_argument(
         "--root",
@@ -185,7 +189,3 @@ def main() -> None:
     print(f"\nsummary: errors={ctx.errors}, warnings={ctx.warnings}")
     if ctx.errors:
         raise SystemExit(1)
-
-
-if __name__ == "__main__":
-    main()
