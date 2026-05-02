@@ -125,6 +125,8 @@ OTHERS = [
     Digitizer("CaE3D", "Canon", "EOS 350D", "Spiegelreflexkamera"),
     Digitizer("CaPG5", "Canon", "PowerShot G5 X Mark II", "Kompaktkamera"),
     Digitizer("CaPMX", "Canon", "Pixma MX340", "Flachbettscanner"),
+    Digitizer("WaIMC", "Wacom", "Intuos Medium CTL-6100K-A", "Stifttablett"),
+    Digitizer("KrKRT", "Krita Foundation", "Krita", "Zeichensoftware"),
     Product("StPWi", "Staedler", "5426 Papierwischer", "Wischwerkzeug"),
 ]
 
