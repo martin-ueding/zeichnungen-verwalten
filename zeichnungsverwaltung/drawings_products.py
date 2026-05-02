@@ -125,6 +125,7 @@ OTHERS = [
     Digitizer("CaE3D", "Canon", "EOS 350D", "Spiegelreflexkamera"),
     Digitizer("CaPG5", "Canon", "PowerShot G5 X Mark II", "Kompaktkamera"),
     Digitizer("CaPMX", "Canon", "Pixma MX340", "Flachbettscanner"),
+    Product("StPWi", "Staedler", "5426 Papierwischer", "Wischwerkzeug"),
 ]
 
 PRODUCTS = PAPERS + PENS + ERASERS + OTHERS
